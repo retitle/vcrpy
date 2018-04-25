@@ -443,7 +443,7 @@ def reset_patchers():
 
     try:
         import tornado.simple_httpclient as simple
-    except ImportError:  # pragma: no cover
+    except (ImportError, AttributeError):  # pragma: no cover
         pass
     else:
         yield mock.patch.object(
@@ -453,7 +453,7 @@ def reset_patchers():
         )
     try:
         import tornado.curl_httpclient as curl
-    except ImportError:  # pragma: no cover
+    except (ImportError, AttributeError):  # pragma: no cover
         pass
     else:
         yield mock.patch.object(
