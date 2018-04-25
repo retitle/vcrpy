@@ -68,7 +68,7 @@ else:
 # Try to save the original types for Tornado
 try:
     import tornado.simple_httpclient
-except ImportError:  # pragma: no cover
+except (ImportError, AttributeError):  # pragma: no cover
     pass
 else:
     _SimpleAsyncHTTPClient_fetch_impl = \
@@ -77,7 +77,7 @@ else:
 
 try:
     import tornado.curl_httpclient
-except ImportError:  # pragma: no cover
+except (ImportError, AttributeError):  # pragma: no cover
     pass
 else:
     _CurlAsyncHTTPClient_fetch_impl = \
@@ -261,7 +261,7 @@ class CassettePatcherBuilder(object):
     def _tornado(self):
         try:
             import tornado.simple_httpclient as simple
-        except ImportError:  # pragma: no cover
+        except (ImportError, AttributeError):  # pragma: no cover
             pass
         else:
             from .stubs.tornado_stubs import vcr_fetch_impl
@@ -272,7 +272,7 @@ class CassettePatcherBuilder(object):
             yield simple.SimpleAsyncHTTPClient, 'fetch_impl', new_fetch_impl
         try:
             import tornado.curl_httpclient as curl
-        except ImportError:  # pragma: no cover
+        except (ImportError, AttributeError):  # pragma: no cover
             pass
         else:
             from .stubs.tornado_stubs import vcr_fetch_impl
